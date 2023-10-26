@@ -13,7 +13,13 @@ const getById = async (id) => {
   return { status: 200, data: sale };
 };
 
+const create = async (arrSale) => {
+  const id = await salesModel.create(arrSale);
+  return { status: 201, response: { id, itemsSold: [...arrSale] } };
+};
+
 module.exports = {
   getAll,
   getById,
+  create,
 };

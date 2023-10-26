@@ -23,7 +23,34 @@ const getById = async (id) => {
   return result;
 };
 
+const create = async (arrSale) => {
+  // obtendo a data/hora atual da venda e extraindo o 'insertId'
+  const query1 = 'INSERT INTO StoreManager.sales (date) VALUES (NOW())';
+  const [{ insertId }] = await connection.execute(query1);
+
+  // formatando e criando os dados dos produtos de sale
+
+  const promises = [];
+
+  arrSale.forEach((sale) => {
+    const query2 = `
+    INSERT INTO StoreManager.sales_products
+    (sale_id, product_id, quantity)
+    VALUES (?, ?, ?)`;
+    const insertItem = connection.execute(query2, [
+      insertId,
+      sale.productId,
+      sale.quantity,
+    ]);
+    promises.push(insertItem);
+  });
+
+  await Promise.all(promises);
+  return insertId;
+};
+
 module.exports = {
   getAll,
   getById,
+  create,
 };
