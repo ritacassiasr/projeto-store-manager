@@ -23,8 +23,17 @@ const getById = {
   data: productId,
 };
 
+const createProduct = {
+  status: 201,
+  data: productId,
+};
+
+const newProduct = 9;
+
 module.exports = {
   allproducts,
   productId,
   getById,
+  createProduct,
+  newProduct,
 };

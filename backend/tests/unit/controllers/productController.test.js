@@ -5,7 +5,7 @@ const sinonChai = require('sinon-chai');
 
 const productController = require('../../../src/controllers/productController');
 const productService = require('../../../src/services/productService');
-const { allProducts, getById, productId } = require('../mocks/productMock');
+const { allProducts, getById, productId, createProduct } = require('../mocks/productMock');
 
 chai.use(sinonChai);
 
@@ -39,6 +39,22 @@ describe('Testando controller products', function () {
     await productController.getById(req, res);
 
     expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith(productId);
+  });
+  it('criando um produto', async function () {
+    sinon.stub(productService, 'create').resolves(createProduct);
+
+    const req = {
+      body: { name: 'Martelo de Thor' },
+    };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+
+    await productController.create(req, res);
+
+    expect(res.status).to.have.been.calledWith(201);
     expect(res.json).to.have.been.calledWith(productId);
   });
   afterEach(function () {

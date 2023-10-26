@@ -23,6 +23,14 @@ describe('Testando service products', function () {
     expect(products.status).to.equal(200);
     expect(products.data).to.deep.equal(productId);
   });
+  it('criando um produto', async function () {
+    sinon.stub(connection, 'execute').resolves([[productId]]);
+
+    const product = await productService.create('Martelo de Thor');
+
+    expect(product.status).to.equal(201);
+    expect(product.data).to.deep.equal(productId);
+  });
   afterEach(function () {
     sinon.restore();
   });
