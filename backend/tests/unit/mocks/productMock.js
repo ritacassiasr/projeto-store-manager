@@ -28,6 +28,7 @@ const createProduct = {
   data: productId,
 };
 
+const productId9 = { insertId: 9 };
 const newProduct = 9;
 
 module.exports = {
@@ -36,4 +37,5 @@ module.exports = {
   getById,
   createProduct,
   newProduct,
+  productId9,
 };

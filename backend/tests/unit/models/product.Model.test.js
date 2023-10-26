@@ -3,7 +3,7 @@ const sinon = require('sinon');
 
 const connection = require('../../../src/models/connection');
 const productModels = require('../../../src/models/productModel');
-const { productId, newProduct } = require('../mocks/productMock');
+const { productId, newProduct, productId9 } = require('../mocks/productMock');
 
 describe('Testando models products', function () {
   // it('pesquisando todos os produtos', async function () {
@@ -25,7 +25,7 @@ describe('Testando models products', function () {
     expect(product).to.be.deep.equal(productId);
   });
   it('Criando produto', async function () {
-    sinon.stub(connection, 'execute').resolves([productId]);
+    sinon.stub(connection, 'execute').resolves([productId9]);
 
     const input = { name: 'ProdutoX' };
     const product = await productModels.create(input);
