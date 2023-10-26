@@ -27,7 +27,38 @@ const saleById = [
   },
 ];
 
+const findSaleById = {
+  status: 200,
+  data: saleById,
+};
+
+const createSale = [
+  {
+    productId: 2,
+    quantity: 1,
+  },
+  {
+    productId: 3,
+    quantity: 10,
+  },
+];
+
+const resultOutput = [
+  {
+    fieldCount: 0,
+    affectedRows: 1,
+    insertId: 3,
+    info: '',
+    serverStatus: 2,
+    warningStatus: 0,
+  },
+  undefined,
+];
+
 module.exports = {
   allSales,
   saleById,
+  findSaleById,
+  createSale,
+  resultOutput,
 };
