@@ -4,8 +4,9 @@ const chai = require('chai');
 const sinonChai = require('sinon-chai');
 
 const productController = require('../../../src/controllers/productController');
+const productModel = require('../../../src/models/productModel');
 const productService = require('../../../src/services/productService');
-const { allProducts, getById, productId, createProduct } = require('../mocks/productMock');
+const { allProducts, getById, productId, createProduct, deleteFail } = require('../mocks/productMock');
 
 chai.use(sinonChai);
 
@@ -56,6 +57,18 @@ describe('Testando controller products', function () {
 
     expect(res.status).to.have.been.calledWith(201);
     expect(res.json).to.have.been.calledWith(productId);
+  });
+  it('deletando produto com status 404', async function () {
+    sinon.stub(productModel, 'deleteProduct').resolves(999);
+    sinon.stub(productService, 'deleteProduct').resolves(deleteFail);
+    const req = { params: { id: 5 } };
+    const res = { status: sinon.stub().returnsThis(), json: sinon.stub() };
+    await productController.deleteProduct(req, res);
+
+    expect(res.status).to.have.been.calledWith(404);
+    expect(res.json).to.have.been.calledWith({
+      message: 'Product not found',
+    });
   });
   afterEach(function () {
     sinon.restore();
