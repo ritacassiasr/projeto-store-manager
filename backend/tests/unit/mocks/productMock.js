@@ -31,11 +31,11 @@ const createProduct = {
 const productId9 = { insertId: 9 };
 const newProduct = 9;
 
-// const deleteFail = {
-//   status: 404,
-//   data: { message: 'Product not found' },
-//   product: false,
-// };
+const deleteFail = {
+  status: 404,
+  data: { message: 'Product not found' },
+  product: false,
+};
 
 module.exports = {
   allproducts,
@@ -44,4 +44,5 @@ module.exports = {
   createProduct,
   newProduct,
   productId9,
+  deleteFail,
 };

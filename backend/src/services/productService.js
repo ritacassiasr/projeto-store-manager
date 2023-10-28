@@ -20,12 +20,22 @@ const create = async (newProduct) => {
 const update = async (req) => {
   const { id } = req.params;
   const { name } = req.body;
-  const productExist = await productModel.getById(id);
-  if (productExist === undefined) {
+  const product = await productModel.getById(id);
+  if (product === undefined) {
     return { status: 404, response: { message: 'Product not found' } };
   }
   const result = await productModel.update(name, id);
   return result && { status: 200, response: { id: Number(id), name } };
+};
+
+const deleteProduct = async (req) => {
+  const { id } = req.params;
+  const product = await productModel.getById(id);
+  if (product === undefined) {
+    return { status: 404, response: { message: 'Product not found' } };
+  }
+  const result = await productModel.deleteProduct(id);
+  return result && { status: 204 };
 };
 
 module.exports = {
@@ -33,4 +43,5 @@ module.exports = {
   getById,
   create,
   update,
+  deleteProduct,
 };

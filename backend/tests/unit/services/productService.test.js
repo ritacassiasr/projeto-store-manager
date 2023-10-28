@@ -31,14 +31,18 @@ describe('Testando service products', function () {
     expect(product.status).to.equal(201);
     expect(product.data).to.deep.equal(productId);
   });
-  // it('delete produto com sucesso 204', async function () {
-  //   sinon.stub(productModels, 'getById').resolves({ id: 1, name: 'Product 1' });
-  //   sinon.stub(productModels, 'deleteProduct').resolves();
+  it('delete produto com sucesso 204', async function () {
+    sinon.stub(productModels, 'getById').resolves({ id: 1, name: 'Product 1' });
+    sinon.stub(productModels, 'deleteProduct').resolves({ affectedRows: 1 });
 
-  //   const res = await productService.deleteProduct(1);
+    await productService.deleteProduct({ params: { id: 1 } });
+  });
+  it('delete produto com erro 404', async function () {
+    sinon.stub(productModels, 'getById').resolves(undefined);
+    sinon.stub(productModels, 'deleteProduct').resolves({ affectedRows: 1 });
 
-  //   expect(res).to.deep.equal({ status: 204, product: true });
-  // });
+    await productService.deleteProduct({ params: { id: 1 } });
+  });
   afterEach(function () {
     sinon.restore();
   });

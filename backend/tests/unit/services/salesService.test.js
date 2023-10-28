@@ -7,7 +7,7 @@ const salesService = require('../../../src/services/salesService');
 const { saleById, allSales } = require('../mocks/salesMock');
 
 describe('Testando service sales', function () {
-  it('pesquisando produto', async function () {
+  it('pesquisando todas as vendas', async function () {
     sinon
       .stub(saleModels, 'getAll')
       .resolves(allSales);
@@ -22,6 +22,14 @@ describe('Testando service sales', function () {
 
     expect(sale.status).to.equal(200);
     expect(sale.data).to.deep.equal(saleById);
+  });
+  it('pesquisando uma venda que não está relacionada/existe', async function () {
+    sinon.stub(connection, 'execute').resolves([]);
+    const InsertId = 999;
+    const sale = await salesService.getById(InsertId);
+
+    expect(sale.status).to.equal(404);
+    expect(sale.data.message).to.deep.equal('Sale not found');
   });
   afterEach(function () {
     sinon.restore();

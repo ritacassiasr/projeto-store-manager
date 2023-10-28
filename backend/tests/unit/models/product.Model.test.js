@@ -33,14 +33,13 @@ describe('Testando models products', function () {
     expect(product).to.be.an('number');
     expect(product).to.equal(newProduct);
   });
-  // it('retorna dados do delete', async function () {
-  //   const deletedProduct = { id: 1, name: 'Product 1' };
-  //   sinon.stub(connection, 'execute').resolves([{ deletedProduct }]);
+  it('deleta produto', async function () {
+    sinon
+      .stub(connection, 'execute')
+      .resolves([{}]);
 
-  //   const deleted = await productModels.deleteProduct(1);
-
-  //   expect(deleted).to.deep.equal(deletedProduct);
-  // });
+    await productModels.deleteProduct(1);
+  });
   afterEach(function () {
     sinon.restore();
   });

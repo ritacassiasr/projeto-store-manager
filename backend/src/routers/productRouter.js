@@ -5,7 +5,7 @@ const { validatedName } = require('../middlewares/validateProduct');
 router.get('/', productController.getAll);
 router.get('/:id', productController.getById);
 router.post('/', validatedName, productController.create);
+router.delete('/:id', productController.deleteProduct);
 router.put('/:id', validatedName, productController.update);
-router.delete('/id:', productController)
 
 module.exports = router;

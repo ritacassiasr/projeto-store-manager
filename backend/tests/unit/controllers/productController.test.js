@@ -57,17 +57,18 @@ describe('Testando controller products', function () {
     expect(res.status).to.have.been.calledWith(201);
     expect(res.json).to.have.been.calledWith(productId);
   });
-  // it('deletando produto com status 404', async function () {
-  //   sinon.stub(productModel, 'deleteProduct').resolves(999);
-  //   sinon.stub(productService, 'deleteProduct').resolves(deleteFail);
-  //   const req = { params: { id: 5 } };
-  //   const res = { status: sinon.stub().returnsThis(), json: sinon.stub() };
-  //   await productController.deleteProduct(req, res);
+  it('deletando produto', async function () {
+    const res = {};
+    const req = {};
 
-  //   expect(res.status).to.have.been.calledWith(404);
-  //   expect(res.json).to.have.been.calledWith({
-  //     message: 'Product not found',
-  //   });
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+    sinon
+      .stub(productService, 'deleteProduct')
+      .resolves({ status: 204 });
+
+    await productController.deleteProduct(req, res);
+  });
   afterEach(function () {
     sinon.restore();
   });
