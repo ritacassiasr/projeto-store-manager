@@ -22,22 +22,32 @@ const create = async (newProduct) => {
   return insertId;
 };
 
-const update = async (name, id) => {
+const deleteProduct = async (id) => {
+  const [{ deletedProduct }] = await connection.execute(
+    'DELETE FROM products WHERE id = ?',
+    [id],
+  );
+  return deletedProduct;
+};
+
+const update = async (id, name) => {
   const query = 'UPDATE StoreManager.products SET name = ? WHERE id = ?';
-  const [result] = await connection.execute(query, [name, id]);
+  const [result] = await connection.execute(query, [id, name]);
   return result ? result.affectedRows : result;
 };
 
-const deleteProduct = async (id) => {
-  const query = 'DELETE FROM StoreManager.products WHERE id = ?';
-  const [result] = await connection.execute(query, [id]);
-  return result ? result.affectedRows : result;
+const searchProduct = async (name) => {
+  const [product] = await connection.execute(`
+  SELECT * FROM products WHERE name LIKE ?`, [`%${name}%`]);
+
+  return product;
 };
 
 module.exports = {
   getAll,
   getById,
   create,
-  update,
   deleteProduct,
+  update,
+  searchProduct,
 };

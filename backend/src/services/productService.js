@@ -1,4 +1,4 @@
-const productModel = require('../models/productModel');
+const productModel = require('../models/productModels');
 
 const getAll = async () => {
   const products = await productModel.getAll();
@@ -17,31 +17,39 @@ const create = async (newProduct) => {
   return { status: 201, data: product };
 };
 
+const deleteProduct = async (id) => {
+  const product = await productModel.getById(id);
+
+  if (!product) {
+    return { type: 'NOT_FOUND', message: 'Product not found', product: false };
+  }
+
+  await productModel.deleteProduct(id);
+
+  return { status: 204, product: true };
+};
+
 const update = async (req) => {
   const { id } = req.params;
   const { name } = req.body;
-  const product = await productModel.getById(id);
-  if (product === undefined) {
+  const productExist = await productModel.getById(id);
+  if (productExist === undefined) {
     return { status: 404, response: { message: 'Product not found' } };
   }
-  const result = await productModel.update(name, id);
-  return result && { status: 200, response: { id: Number(id), name } };
+  const result = await productModel.update(id, name);
+  return result && { status: 200, response: { id, name } };
 };
 
-const deleteProduct = async (req) => {
-  const { id } = req.params;
-  const product = await productModel.getById(id);
-  if (product === undefined) {
-    return { status: 404, response: { message: 'Product not found' } };
-  }
-  const result = await productModel.deleteProduct(id);
-  return result && { status: 204 };
+const searchProduct = async (query) => {
+  const products = await productModel.searchProduct(query);
+  return { status: 200, response: products };
 };
 
 module.exports = {
   getAll,
   getById,
   create,
-  update,
   deleteProduct,
+  update,
+  searchProduct,
 };

@@ -49,6 +49,34 @@ describe('Testando controller sales', function () {
 
     await salesController.create(req, res);
   });
+  it('delete sale status 204', async function () {
+    const res = {};
+    const req = { params: { id: 1 } };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+    sinon.stub(salesService, 'deleteSale').resolves({ type: null });
+
+    await salesController.deleteSale(req, res);
+
+    expect(res.status).to.have.been.calledWith(204);
+    await salesController.deleteSale(req, res);
+  });
+  it('delete sale status 404', async function () {
+    const res = {};
+    const req = { params: { id: 999 } };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+    sinon.stub(salesService, 'deleteSale')
+      .resolves({ type: 'NOT_FOUND', message: 'Product not found' });
+
+    await salesController.deleteSale(req, res);
+
+    expect(res.status).to.have.been.calledWith(404);
+    expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
+  });
+
   afterEach(function () {
     sinon.restore();
   });

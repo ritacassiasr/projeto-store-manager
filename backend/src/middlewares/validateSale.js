@@ -1,4 +1,4 @@
-const productModel = require('../models/productModel');
+const productModel = require('../models/productModels');
 
 // Será validado que não é possível cadastrar uma venda sem o campo productId
 

@@ -34,6 +34,13 @@ describe('Testando models sales', function () {
     const create = await salesModels.create(createSale);
     expect(create).to.equal(resultOutput[0].insertId);
   });
+  it('Deleta sale', async function () {
+    sinon.stub(connection, 'execute').resolves([{ deletedSale: 1 }]);
+    const result = await salesModels.deleteSale(2);
+
+    expect(result).to.be.equal(1);
+  });
+  
   afterEach(function () {
     sinon.restore();
   });

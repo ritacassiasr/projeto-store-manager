@@ -1,3 +1,4 @@
+// const snakeize = require('snakeize');
 const connection = require('./connection');
 
 const getAll = async () => {
@@ -37,11 +38,7 @@ const create = async (arrSale) => {
     INSERT INTO StoreManager.sales_products
     (sale_id, product_id, quantity)
     VALUES (?, ?, ?)`;
-    const insertItem = connection.execute(query2, [
-      insertId,
-      sale.productId,
-      sale.quantity,
-    ]);
+    const insertItem = connection.execute(query2, [insertId, sale.productId, sale.quantity]);
     promises.push(insertItem);
   });
 
@@ -49,8 +46,17 @@ const create = async (arrSale) => {
   return insertId;
 };
 
+const deleteSale = async (id) => {
+  const [{ deletedSale }] = await connection.execute(
+    'DELETE FROM sales WHERE id = ?',
+    [id],
+  );
+  return deletedSale;
+};
+
 module.exports = {
   getAll,
   getById,
   create,
+  deleteSale,
 };

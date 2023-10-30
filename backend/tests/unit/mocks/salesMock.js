@@ -43,6 +43,37 @@ const createSale = [
   },
 ];
 
+const newSale = {
+  id: 3,
+  itemsSold: [
+    {
+      productId: 2,
+      quantity: 1,
+    },
+    {
+      productId: 3,
+      quantity: 10,
+    },
+  ],
+};
+
+const saleStatus = {
+  status: 201,
+  data: {
+    id: 3,
+    itemsSold: [
+      {
+        productId: 2,
+        quantity: 1,
+      },
+      {
+        productId: 3,
+        quantity: 10,
+      },
+    ],
+  },
+};
+
 const resultOutput = [
   {
     fieldCount: 0,
@@ -55,10 +86,18 @@ const resultOutput = [
   undefined,
 ];
 
+const updatedProduct = {
+  id: 1,
+  name: 'Martelo do Batman',
+};
+
 module.exports = {
   allSales,
   saleById,
   findSaleById,
   createSale,
+  newSale,
+  saleStatus,
   resultOutput,
+  updatedProduct,
 };

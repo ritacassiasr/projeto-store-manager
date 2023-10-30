@@ -8,7 +8,7 @@ chai.use(sinonChai);
 const {
   validateProductId,
   saleQuantity,
-} = require('../../../src/middlewares/validateSales');
+} = require('../../../src/middlewares/validateSale');
 
 describe('Testando middlewares sale', function () {
   it('Ao terminar a verificação, o next é chamado', async function () {

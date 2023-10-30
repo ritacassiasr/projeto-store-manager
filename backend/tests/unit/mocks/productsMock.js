@@ -1,4 +1,4 @@
-const allproducts = [
+const allProducts = [
   {
     id: 1,
     name: 'Martelo de Thor',
@@ -13,23 +13,28 @@ const allproducts = [
   },
 ];
 
-const productId = {
+const getAllProducts = {
+  status: 200,
+  data: allProducts,
+};
+
+const productId1 = {
   id: 1,
-  name: 'Martelo do Thor',
+  name: 'Martelo de Thor',
 };
 
 const getById = {
   status: 200,
-  data: productId,
-};
-
-const createProduct = {
-  status: 201,
-  data: productId,
+  data: productId1,
 };
 
 const productId9 = { insertId: 9 };
-const newProduct = 9;
+const newProduct9 = 9;
+
+const createProduct = {
+  status: 201,
+  data: productId1,
+};
 
 const deleteFail = {
   status: 404,
@@ -37,12 +42,19 @@ const deleteFail = {
   product: false,
 };
 
+const deleteSucess = {
+  status: 204,
+  product: true,
+};
+
 module.exports = {
-  allproducts,
-  productId,
+  allProducts,
+  getAllProducts,
+  productId1,
   getById,
   createProduct,
-  newProduct,
   productId9,
+  newProduct9,
   deleteFail,
+  deleteSucess,
 };

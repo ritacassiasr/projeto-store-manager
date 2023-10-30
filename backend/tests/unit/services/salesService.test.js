@@ -7,7 +7,7 @@ const salesService = require('../../../src/services/salesService');
 const { saleById, allSales } = require('../mocks/salesMock');
 
 describe('Testando service sales', function () {
-  it('pesquisando todas as vendas', async function () {
+  it('pesquisando produto', async function () {
     sinon
       .stub(saleModels, 'getAll')
       .resolves(allSales);
@@ -30,6 +30,20 @@ describe('Testando service sales', function () {
 
     expect(sale.status).to.equal(404);
     expect(sale.data.message).to.deep.equal('Sale not found');
+  });
+  it('remove sale com id válido', async function () {
+    sinon.stub(saleModels, 'getById').resolves(allSales[0]);
+    sinon.stub(saleModels, 'deleteSale').resolves(1);
+    const result = await salesService.deleteSale(1);
+
+    expect(result.type).to.be.equal(null);
+  });
+  it('criando sale', async function () {
+    sinon
+      .stub(saleModels, 'create')
+      .resolves(1);
+
+    await salesService.create(allSales);
   });
   afterEach(function () {
     sinon.restore();
