@@ -21,7 +21,7 @@ const deleteProduct = async (id) => {
   const product = await productModel.getById(id);
 
   if (!product) {
-    return { type: 'NOT_FOUND', message: 'Product not found', product: false };
+    return { status: 404, data: 'Product not found', product: false };
   }
 
   await productModel.deleteProduct(id);
@@ -36,8 +36,8 @@ const update = async (req) => {
   if (productExist === undefined) {
     return { status: 404, response: { message: 'Product not found' } };
   }
-  const result = await productModel.update(id, name);
-  return result && { status: 200, response: { id, name } };
+  const result = await productModel.update(Number(id), name);
+  return result && { status: 200, response: { id: Number(id), name } };
 };
 
 const searchProduct = async (query) => {

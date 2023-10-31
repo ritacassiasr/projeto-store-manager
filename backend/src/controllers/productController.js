@@ -21,8 +21,8 @@ const deleteProduct = async (req, res) => {
   const { id } = req.params;
   const { status, data, product } = await productService.deleteProduct(id);
 
-  if (product) return res.status(status).json();
-  if (!product) return res.status(status).json(data);
+  // if (product) return res.status(status).json();
+  if (!product) return res.status(status).json({ message: data });
   return res.status(204).json();
 };
 

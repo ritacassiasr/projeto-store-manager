@@ -38,7 +38,7 @@ const createProduct = {
 
 const deleteFail = {
   status: 404,
-  data: { message: 'Product not found' },
+  data: 'Product not found',
   product: false,
 };
 
